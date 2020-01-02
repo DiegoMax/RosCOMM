@@ -5,7 +5,6 @@ const Engine = require('./engine');
 
 module.exports = class Handler {
   constructor() {
-    console.log('Request handler has been initialized!');
     this.server = express();
     this.engine = new Engine();
     this.server.use(bodyParser.json());

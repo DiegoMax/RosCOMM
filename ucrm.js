@@ -31,6 +31,7 @@ module.exports = class UCRM {
       message: 'RosCOMM: ' + message,
       clientId: clientID,
     };
+    console.log(`Writing client log: RosCOMM: ${message}`);
     return rp(options);
   }
 };

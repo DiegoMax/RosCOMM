@@ -3,11 +3,8 @@ const UNMS = require('./unms');
 const UCRM = require('./ucrm');
 
 module.exports = class Engine {
-  constructor() {
-    this.unms = new UNMS();
-  }
-
   suspendService(data) {
+    this.unms = new UNMS();
     console.log('Suspending Service...');
     let siteConfig;
     let addresses;
@@ -37,6 +34,7 @@ module.exports = class Engine {
   }
 
   unsuspendService(data) {
+    this.unms = new UNMS();
     console.log('Re-Enabling Service...');
     let siteConfig;
     let addresses;

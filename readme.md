@@ -106,10 +106,6 @@ For testing, you can pretty much do: `node index.js` and the application will ru
 If everything goes right, after launching the API you shuld see something like this in the console:
 
 ```console
-Request handler has been initialized!
-Initializing UNMS Connector...
-UNMS Hostname: yourhost.example.com
-UNMS SSL: yes
 RosCOMM API listening on port 4000
 ```
 

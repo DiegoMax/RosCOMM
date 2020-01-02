@@ -1,3 +1,4 @@
-const http = require('http');
 const Handler = require('./handler');
-const requestHandler = new Handler();
+
+// Start request handler instance.
+new Handler();
