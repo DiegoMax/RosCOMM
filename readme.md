@@ -26,6 +26,10 @@ This code is provied 'as is', without any warranty or support whatsoever, other 
 
 ---
 
+### Installation
+
+As with any NodeJS app, you need to run ``npm install`` after downloading this code, so that all the dependencies get installed and built.
+
 ### RosCOMM config.json file
 
 RosCOMM comes with a default *config.json.example* file. You need to rename this file to *config.json* before running this application.
