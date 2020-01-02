@@ -24,8 +24,6 @@ This code is provied 'as is', without any warranty or support whatsoever, other 
 
 ## Getting Started
 
----
-
 ### Installation
 
 As with any NodeJS app, you need to run ``npm install`` after downloading this code, so that all the dependencies get installed and built.
