@@ -1,0 +1,26 @@
+{
+  "unms_api_token": "cb9b5ce6-5e1e-4094-8da0-xxxxxxxxxxxx",
+  "unms_fqdn": "unms.example.com",
+  "unms_use_ssl": true,
+  "unms_sites": [
+    {
+      "name": "SITE1",
+      "routeros_gateway_ip": "10.10.91.1",
+      "api_port": 1234,
+      "username": "foo",
+      "password": "bar",
+      "suspended_list": "suspended"
+    },
+    {
+      "name": "SITE2",
+      "routeros_gateway_ip": "10.0.20.1",
+      "api_port": 1234,
+      "username": "admin",
+      "password": "1234",
+      "suspended_list": "suspended"
+    }
+  ],
+  "customer_is_pppoe": true,
+  "management_vlan_id": 100,
+  "customer_vlan_id": 10
+}
