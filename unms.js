@@ -38,7 +38,7 @@ module.exports = class UNMS {
     }
   }
 
-  getManagementAddressesForSite(siteId) {
+  getAddressesForClientSite(siteId) {
     let options = this.requestOptions();
     options.uri = this.unmsURL() + `/devices`;
     options.qs = {
@@ -55,15 +55,20 @@ module.exports = class UNMS {
             'Can not find Management Interface for device, aborting.',
           );
         }
-        let addresses = this.getIpAddressesForInterface(managementInterface);
-        if (addresses && addresses.length) {
-          console.log(`Found ${addresses.length} management IP's for device:`);
-          return addresses;
-        } else {
-          throw Error(
-            'Can not find Management Addresses for this client site.',
-          );
+        let customerInterface = this.getCustomerTrafficInterfaceForDevice(
+          device,
+        );
+        if (!customerInterface) {
+          throw Error('Can not find Customer Interface for device, aborting.');
         }
+        let addresses = {};
+        addresses.management = this.getIpAddressesForInterface(
+          managementInterface,
+        );
+        addresses.customer = this.getIpAddressesForInterface(customerInterface);
+        console.log(`Found Management IP ${addresses.management[0]}`);
+        console.log(`Found Customer IP ${addresses.customer[0]}`);
+        return addresses;
       } else {
         throw Error('Can not find a device for this Client Site');
       }
@@ -73,9 +78,21 @@ module.exports = class UNMS {
   getManagementInterfaceForDevice(deviceObject) {
     let interfaces = deviceObject.interfaces;
     let managementInterface = _.find(interfaces, {
-      vlan: { id: 100 },
+      vlan: { id: config.management_vlan_id },
     });
     return managementInterface;
+  }
+
+  getCustomerTrafficInterfaceForDevice(deviceObject) {
+    let interfaces = deviceObject.interfaces;
+    let searchPath;
+    if (config.customer_is_pppoe == true) {
+      searchPath = { identification: { type: 'pppoe' } };
+    } else {
+      searchPath = { vlan: { id: config.customer_vlan_id } };
+    }
+    let customerInterface = _.find(interfaces, searchPath);
+    return customerInterface;
   }
 
   getIpAddressesForInterface(interfaceObject) {

@@ -9,6 +9,7 @@ module.exports = class Handler {
     console.log('Request handler has been initialized!');
     this.server = express();
     this.unms = new UNMS();
+
     this.server.use(bodyParser.json());
     this.init();
     this.server.listen(4000, () => {
@@ -37,9 +38,13 @@ module.exports = class Handler {
     return new Promise((resolve, reject) => {
       console.log('Suspending Service...');
       this.unms
-        .getManagementAddressesForSite(data.entity.unmsClientSiteId)
+        .getAddressesForClientSite(data.entity.unmsClientSiteId)
         .then((addresses, err) => {
-          console.log(addresses);
+          let ros = new RouterOS('FD TEST');
+          return ros.suspendServiceWithAddresses(
+            addresses,
+            data.entity.unmsClientSiteId,
+          );
         })
         .catch(err => {
           console.log(err);
@@ -52,12 +57,16 @@ module.exports = class Handler {
   unsuspendService(data) {
     console.log('Re-Enabling Service...');
     this.unms
-      .getManagementAddressesForSite(data.entity.unmsClientSiteId)
+      .getAddressesForClientSite(data.entity.unmsClientSiteId)
       .then((addresses, err) => {
-        console.log(addresses);
+        let ros = new RouterOS('FD TEST');
+        return ros.unsuspendServiceWithAddresses(
+          addresses,
+          data.entity.unmsClientSiteId,
+        );
       })
       .catch(err => {
-        console.log('Can not find management ip address for this site');
+        console.log(err);
       });
   }
 
