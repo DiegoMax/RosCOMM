@@ -2,27 +2,34 @@
   "RosCOMM": {
     "port": 4000
   },
-  "unms_api_token": "cb9b5ce6-5e1e-4094-8da0-xxxxxxxxxxxx",
-  "unms_fqdn": "unms.example.com",
-  "unms_use_ssl": true,
-  "unms_sites": [
-    {
-      "name": "SITE1",
-      "routeros_gateway_ip": "10.10.91.1",
-      "routeros_api_port": 1234,
-      "routeros_username": "foo",
-      "routeros_password": "bar",
-      "routeros_suspended_list": "suspended"
-    },
-    {
-      "name": "SITE2",
-      "routeros_gateway_ip": "10.0.20.1",
-      "routeros_api_port": 1234,
-      "routeros_username": "admin",
-      "routeros_password": "1234",
-      "routeros_suspended_list": "suspended"
-    }
-  ],
+  "unms": {
+    "api_token": "cb9b5ce6-5e1e-4094-8da0-xxxxxxxxxxxx",
+    "fqdn": "unms.example.com",
+    "use_ssl": true,
+    "sites": [
+      {
+        "name": "SITE1",
+        "routeros_gateway_ip": "10.10.91.1",
+        "routeros_api_port": 1234,
+        "routeros_username": "foo",
+        "routeros_password": "bar",
+        "routeros_suspended_list": "suspended"
+      },
+      {
+        "name": "SITE2",
+        "routeros_gateway_ip": "10.0.20.1",
+        "routeros_api_port": 1234,
+        "routeros_username": "admin",
+        "routeros_password": "1234",
+        "routeros_suspended_list": "suspended"
+      }
+    ]
+  },
+  "ucrm": {
+    "app_token": "ezr7ont1Bk/iPfYmUosdfdsfsdf5gTyYrHdwYrMydrpclmBEeHz",
+    "fqdn": "unms.example.com",
+    "use_ssl": true
+  },
   "customer_is_pppoe": true,
   "management_vlan_id": 100,
   "customer_vlan_id": 10
