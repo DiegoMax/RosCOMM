@@ -11,7 +11,7 @@ module.exports = class RouterOS {
   }
 
   validateSite(siteName) {
-    let site = _.find(config.unms_sites, { name: siteName });
+    let site = _.find(config.unms.sites, { name: siteName });
     if (!site) {
       throw Error(
         `Can not find a site with name: ${siteName} in the config file. Aborting`,
@@ -57,7 +57,7 @@ module.exports = class RouterOS {
               `Succesfully added ${result.address} to ${result.list} list`,
             );
             this.api.close();
-            return result;
+            return { result: result, site: this.site };
           } else {
             this.api.close();
             return null;
@@ -76,7 +76,7 @@ module.exports = class RouterOS {
               `Succesfully removed ${result.address} to ${result.list} list`,
             );
             this.api.close();
-            return result;
+            return { result: result, site: this.site };
           }
           this.api.close();
           return null;

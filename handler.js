@@ -32,6 +32,7 @@ module.exports = class Handler {
           response.json(res);
         })
         .catch(err => {
+          console.log(err.message);
           response.status(500).send(err.message);
         });
     });

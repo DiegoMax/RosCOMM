@@ -1,33 +1,26 @@
 const config = require('./config.json');
-const http = require('http');
-const https = require('https');
 const rp = require('request-promise');
 const _ = require('lodash');
 
 module.exports = class UNMS {
   constructor() {
     console.log('Initializing UNMS Connector...');
-    console.log('UNMS Hostname: ' + config.unms_fqdn);
-    console.log('UNMS SSL: ' + (config.unms_use_ssl == true ? 'yes' : 'no'));
+    console.log('UNMS Hostname: ' + config.unms.fqdn);
+    console.log('UNMS SSL: ' + (config.unms.use_ssl == true ? 'yes' : 'no'));
   }
 
   requestOptions() {
     return {
       headers: {
-        'x-auth-token': config.unms_api_token,
+        'x-auth-token': config.unms.api_token,
       },
       json: true,
     };
   }
 
   unmsURL() {
-    let schema = config.unms_use_ssl == true ? 'https://' : 'http://';
-    return schema + config.unms_fqdn + '/nms/api/v2.1';
-  }
-
-  ucrmURL() {
-    let schema = config.unms_use_ssl == true ? 'https://' : 'http://';
-    return schema + config.unms_fqdn + '/api/v1.0';
+    let schema = config.unms.use_ssl == true ? 'https://' : 'http://';
+    return schema + config.unms.fqdn + '/nms/api/v2.1';
   }
 
   connClass() {
@@ -123,7 +116,7 @@ module.exports = class UNMS {
         return this.getDevices(parentSiteID);
       })
       .then(parentDevices => {
-        let sitesConfig = config.unms_sites;
+        let sitesConfig = config.unms.sites;
         let siteConfig = _.find(sitesConfig, { name: parentSiteName });
         if (siteConfig) {
           return siteConfig;
