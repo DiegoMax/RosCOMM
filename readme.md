@@ -175,7 +175,7 @@ Feel free to send a pull request with your fixes or features.
 
 ## License
 
-This project is licensed under the GNU version 2 License - see the [license.md](license.md) file for details
+This project is licensed under the GPL version 2 License - see the [license.md](license.md) file for details
 
 ## Acknowledgments
 
