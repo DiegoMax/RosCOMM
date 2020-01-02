@@ -1,7 +1,6 @@
 const config = require('./config.json');
 const _ = require('lodash');
 const RouterOSClient = require('routeros-client').RouterOSClient;
-
 module.exports = class RouterOS {
   constructor(siteName) {
     this.site = this.validateSite(siteName);
@@ -57,8 +56,12 @@ module.exports = class RouterOS {
             console.log(
               `Succesfully added ${result.address} to ${result.list} list`,
             );
+            this.api.close();
+            return result;
+          } else {
+            this.api.close();
+            return null;
           }
-          this.api.close();
         },
       );
     });
@@ -72,8 +75,11 @@ module.exports = class RouterOS {
             console.log(
               `Succesfully removed ${result.address} to ${result.list} list`,
             );
+            this.api.close();
+            return result;
           }
           this.api.close();
+          return null;
         },
       );
     });

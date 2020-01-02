@@ -38,6 +38,24 @@ module.exports = class UNMS {
     }
   }
 
+  getSites(siteID) {
+    let options = this.requestOptions();
+    options.uri = this.unmsURL() + `/sites`;
+    options.qs = {
+      id: siteID,
+    };
+    return rp(options);
+  }
+
+  getDevices(siteID) {
+    let options = this.requestOptions();
+    options.uri = this.unmsURL() + `/devices`;
+    options.qs = {
+      siteId: siteID,
+    };
+    return rp(options);
+  }
+
   getAddressesForClientSite(siteId) {
     let options = this.requestOptions();
     options.uri = this.unmsURL() + `/devices`;
@@ -73,6 +91,44 @@ module.exports = class UNMS {
         throw Error('Can not find a device for this Client Site');
       }
     });
+  }
+
+  getParentSiteForClientSite(clientSiteID) {
+    let options = this.requestOptions();
+    options.uri = this.unmsURL() + `/sites`;
+    options.qs = {
+      id: clientSiteID,
+    };
+    return rp(options).then(response => {
+      if (_.has(response[0], 'identification.parent.id')) {
+        return this.getSites(response[0].identification.parent.id);
+      } else {
+        throw Error('Can not find parent');
+      }
+    });
+  }
+
+  getGatewayForClientSite(clientSiteID) {
+    let parentSiteName;
+    return this.getParentSiteForClientSite(clientSiteID)
+      .then(parentSite => {
+        let site = parentSite[0];
+        parentSiteName = site.identification.name;
+        let parentSiteID = site.id;
+        console.log(
+          `Found parent site: ${parentSiteName} for client site: ${clientSiteID}`,
+        );
+        return this.getDevices(parentSiteID);
+      })
+      .then(parentDevices => {
+        let sitesConfig = config.unms_sites;
+        let siteConfig = _.find(sitesConfig, { name: parentSiteName });
+        if (siteConfig) {
+          return siteConfig;
+        } else {
+          throw Error(`Can not find a valid site config for ${parentSiteName}`);
+        }
+      });
   }
 
   getManagementInterfaceForDevice(deviceObject) {

@@ -1,15 +1,13 @@
 //const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
-const RouterOS = require('./ros');
-const UNMS = require('./unms');
+const Engine = require('./engine');
 
 module.exports = class Handler {
   constructor() {
     console.log('Request handler has been initialized!');
     this.server = express();
-    this.unms = new UNMS();
-
+    this.engine = new Engine();
     this.server.use(bodyParser.json());
     this.init();
     this.server.listen(4000, () => {
@@ -20,57 +18,22 @@ module.exports = class Handler {
   init() {
     this.server.post('/set_suspension', ({ body }, response) => {
       const { changeType, extraData, entityId } = body;
-      // console.log(extraData);
+      let changePromise;
       switch (changeType) {
         case 'suspend':
-          this.suspendService(extraData).then((res, err) => {
-            response.send('Grea');
-          });
+          changePromise = this.engine.suspendService(extraData);
           break;
         case 'unsuspend':
-          this.unsuspendService(extraData);
+          changePromise = this.engine.unsuspendService(extraData);
           break;
       }
-    });
-  }
-
-  suspendService(data) {
-    return new Promise((resolve, reject) => {
-      console.log('Suspending Service...');
-      this.unms
-        .getAddressesForClientSite(data.entity.unmsClientSiteId)
-        .then((addresses, err) => {
-          let ros = new RouterOS('FD TEST');
-          return ros.suspendServiceWithAddresses(
-            addresses,
-            data.entity.unmsClientSiteId,
-          );
+      changePromise
+        .then(res => {
+          response.json(res);
         })
         .catch(err => {
-          console.log(err);
+          res.status(500).json(err);
         });
-      //const ros = new RouterOS('FD_CAV');
-      //resolve('All Fine.');
     });
-  }
-
-  unsuspendService(data) {
-    console.log('Re-Enabling Service...');
-    this.unms
-      .getAddressesForClientSite(data.entity.unmsClientSiteId)
-      .then((addresses, err) => {
-        let ros = new RouterOS('FD TEST');
-        return ros.unsuspendServiceWithAddresses(
-          addresses,
-          data.entity.unmsClientSiteId,
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getClientSiteData(id) {
-    return new Promise((resolve, reject) => {});
   }
 };
