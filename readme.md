@@ -21,6 +21,7 @@ This code is provied 'as is', without any warranty or support whatsoever, other 
 ### System Requeriments
 
 * This should run on any flavor of Linux or Windows, however I have **only** tested this code in Ubuntu Server 18.04 LTS using **NodeJS version 12.14.0** 64bit.
+* This has been tested **ONLY with UNMS version 1.1.2**. Using this code with other versions of UNMS is **not** recommended.
 
 ## Getting Started
 
