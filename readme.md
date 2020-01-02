@@ -126,11 +126,11 @@ When the service gets re-enabled, you should see output similar to this:
 
 ```console
 Re-Enabling Service...
-Found parent site: FD CAV for client site: cb09328c-9997-46b0-be0e-eea1fc85b644
+Found parent site: Site1 for client site: cb09328c-9997-46b0-be0e-eea1fc85b644
 Searching management IP for client device...
 Found Management IP 10.5.91.68/24
 Found Customer IP 100.64.91.226/32
-Started RouterOS Connector for site FD CAV -> 10.0.20.1 - Suspension List: suspended
+Started RouterOS Connector for site Site1 -> 10.0.20.1 - Suspension List: suspended
 Removing suspended ip's for client site: cb09328c-9997-46b0-be0e-eea1fc85b644
 Succesfully removed 100.64.91.226 to suspended list
 ```
