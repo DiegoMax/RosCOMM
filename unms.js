@@ -103,7 +103,9 @@ module.exports = class UNMS {
       if (_.has(response[0], 'identification.parent.id')) {
         return this.getSites(response[0].identification.parent.id);
       } else {
-        throw Error('Can not find parent');
+        throw Error(
+          `Can not find parent site for this Client Site: ${clientSiteID}`,
+        );
       }
     });
   }

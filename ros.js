@@ -5,7 +5,7 @@ module.exports = class RouterOS {
   constructor(siteName) {
     this.site = this.validateSite(siteName);
     console.log(
-      `Started RouterOS Connector for site ${siteName} -> ${this.site.routeros_gateway_ip} - Suspension List: ${this.site.suspended_list}`,
+      `Started RouterOS Connector for site ${siteName} -> ${this.site.routeros_gateway_ip} - Suspension List: ${this.site.routeros_suspended_list}`,
     );
     this.setupConnection();
   }
@@ -22,19 +22,19 @@ module.exports = class RouterOS {
         `Parameter routeros_gateway_ip is not configured for ${siteName}. Aborting`,
       );
     }
-    if (!_.has(site, 'suspended_list')) {
+    if (!_.has(site, 'routeros_suspended_list')) {
       throw Error(
-        `Parameter suspended_list is not configured for ${siteName}. Aborting`,
+        `Parameter routeros_suspended_list is not configured for ${siteName}. Aborting`,
       );
     }
-    if (!_.has(site, 'username')) {
+    if (!_.has(site, 'routeros_username')) {
       throw Error(
-        `Parameter username is not configured for ${siteName}. Aborting`,
+        `Parameter routeros_username is not configured for ${siteName}. Aborting`,
       );
     }
-    if (!_.has(site, 'password')) {
+    if (!_.has(site, 'routeros_password')) {
       throw Error(
-        `Parameter password is not configured for ${siteName}. Aborting`,
+        `Parameter routeros_password is not configured for ${siteName}. Aborting`,
       );
     }
     return site;
@@ -43,8 +43,8 @@ module.exports = class RouterOS {
   setupConnection() {
     this.api = new RouterOSClient({
       host: this.site.routeros_gateway_ip,
-      user: this.site.username,
-      password: this.site.password,
+      user: this.site.routeros_username,
+      password: this.site.routeros_password,
     });
   }
 
@@ -92,7 +92,7 @@ module.exports = class RouterOS {
         // Now, add the new ip
         let listMenu = rosClient.menu('/ip firewall address-list');
         return listMenu.add({
-          list: this.site.suspended_list,
+          list: this.site.routeros_suspended_list,
           comment: unmsClientSiteId,
           address: addresses.customer[0],
         });

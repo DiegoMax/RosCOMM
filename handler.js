@@ -1,4 +1,4 @@
-//const http = require('http');
+const config = require('./config.json');
 const express = require('express');
 const bodyParser = require('body-parser');
 const Engine = require('./engine');
@@ -10,8 +10,8 @@ module.exports = class Handler {
     this.engine = new Engine();
     this.server.use(bodyParser.json());
     this.init();
-    this.server.listen(4000, () => {
-      console.log('RosUNMS API listening on port 4000');
+    this.server.listen(config.RosCOMM.port, () => {
+      console.log(`RosCOMM API listening on port ${config.RosCOMM.port}`);
     });
   }
 
@@ -32,7 +32,7 @@ module.exports = class Handler {
           response.json(res);
         })
         .catch(err => {
-          res.status(500).json(err);
+          response.status(500).send(err.message);
         });
     });
   }
