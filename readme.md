@@ -9,11 +9,16 @@ Im not responsible for any issues you might have by using this.
 
 This code is provied 'as is', without any warranty whatsoever.
 
-
 ### Prerequisites
 
 This should work on anything capable of running NodeJS.
 
+## Features
+
+* (in progress) Automatically add suspended clients to a defined address list in RouterOS
+* (in progress) Automatically remove suspended ip's when the service is re-enabled for whatever reason
+* (in progress) Ability to deal with multiple RouterOS Gateways detected automatically from UNMS network topology
+* (planned) Automatically add active clients to a custom address list based on their UCRM Service (so that PCQ Queues can be esasily used)
 
 ## Contributing
 
