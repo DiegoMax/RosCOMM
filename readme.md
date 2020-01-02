@@ -39,33 +39,42 @@ RosCOMM comes with a default *config.json.example* file. You need to rename this
   "RosCOMM": {
     "port": 4000 // Port where RosCOMM will listen for requests
   },
-  "unms_api_token": "xxxxxxxxxxxx", // API Token Generated in UNMS Users section
-  "unms_fqdn": "unms.example.com", // domain or ip address of your UNMS Install
-  "unms_use_ssl": true,
-
-  // For every one of your sites, you must create
-  // a matching site on this array. Most importantly
-  // be absolutely sure that the "name" parameter
-  // matches exactly the site name on UNMS
-
-  "unms_sites": [
-    {
-      "name": "SITE1",
-      "routeros_gateway_ip": "10.10.91.1",
-      "routeros_api_port": 1234,
-      "routeros_username": "foo",
-      "routeros_password": "bar",
-      "routeros_suspended_list": "suspended"
-    },
-    {
-      "name": "SITE2",
-      "routeros_gateway_ip": "10.10.92.1",
-      "routeros_api_port": 1234,
-      "routeros_username": "foo",
-      "routeros_password": "bar",
-      "routeros_suspended_list": "suspended"
-    }
-  ],
+  "unms": {
+    // API Token Generated in UNMS Users section
+    "api_token": "cb9b5ce6-5e1e-4094-8da0-xxxxxxxxxxxx",
+    // domain or ip address of your UNMS Install
+    "fqdn": "unms.example.com",
+    "use_ssl": true,
+    // For every one of your sites, you must create
+    // a matching site on this array. Most importantly
+    // be absolutely sure that the "name" parameter
+    // matches exactly the site name on UNMS
+    "sites": [
+      {
+        "name": "SITE1",
+        "routeros_gateway_ip": "10.10.91.1",
+        "routeros_api_port": 1234,
+        "routeros_username": "foo",
+        "routeros_password": "bar",
+        "routeros_suspended_list": "suspended"
+      },
+      {
+        "name": "SITE2",
+        "routeros_gateway_ip": "10.0.20.1",
+        "routeros_api_port": 1234,
+        "routeros_username": "admin",
+        "routeros_password": "1234",
+        "routeros_suspended_list": "suspended"
+      }
+    ]
+  },
+  "ucrm": {
+    // UCRM App Token
+    // You can generate one in UCRM -> System -> Security
+    "app_token": "ezr7ont1Bk/iPfYmUosdfdsfsdf5gTyYrHdwYrMydrpclmBEeHz",
+    "fqdn": "unms.example.com",
+    "use_ssl": true
+  },
   // If you use PPPoE, set this to true
   "customer_is_pppoe": true, 
   // Set your management VLAN ID
@@ -141,10 +150,11 @@ Succesfully removed 100.64.91.226 to suspended list
 
 ## Features
 
-* (in progress) Automatically add suspended clients to a defined address list in RouterOS
-* (in progress) Automatically remove suspended ip's when the service is re-enabled for whatever reason
-* (in progress) Ability to deal with multiple RouterOS Gateways detected automatically from UNMS network topology
-* (planned) Automatically add active clients to a custom address list based on their UCRM Service (so that PCQ Queues can be esasily used)
+* Automatically add suspended clients to a defined address list in RouterOS
+* Automatically remove suspended ip's when the service is re-enabled for whatever reason
+* Ability to deal with multiple RouterOS Gateways detected automatically from UNMS network topology
+* All actions/errors get logged to the UCRM Customer's account log.
+* (**planned**) Automatically add active clients to a custom address list based on their UCRM Service (so that PCQ Queues can be esasily used)
 
 
 ## Contributing
