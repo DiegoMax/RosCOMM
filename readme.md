@@ -150,11 +150,19 @@ Succesfully removed 100.64.91.226 to suspended list
 
 ## Features
 
+### Working
+
 * Automatically add suspended clients to a defined address list in RouterOS
 * Automatically remove suspended ip's when the service is re-enabled for whatever reason
 * Ability to deal with multiple RouterOS Gateways detected automatically from UNMS network topology
 * All actions/errors get logged to the UCRM Customer's account log.
-* (**planned**) Automatically add active clients to a custom address list based on their UCRM Service (so that PCQ Queues can be esasily used)
+
+### Planned
+
+* Automatically add active clients to a custom address list based on their UCRM Service (so that PCQ Queues can be esasily used)
+* Implement a dispatch queue, so that network requests can be queued and re-tried in the event of connectivity issues, etc.
+* Implement Customer Ip Update (If a customer gets a DHCP IP, it might restart the CPE, this could potentially assign a new IP. This case will be implemented in a future version so that the IP for a suspended service gets updated in the event of a CPE IP Change)
+* Who knows...
 
 
 ## Contributing
