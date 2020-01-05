@@ -15,6 +15,12 @@ module.exports = class Handler {
   }
 
   init() {
+    this.server.get('/ping', (req, res) => {
+      res.json({
+        result: 'pong',
+      });
+    });
+
     this.server.post('/set_suspension', ({ body }, response) => {
       const { changeType, extraData, entityId } = body;
       let changePromise;
